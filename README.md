@@ -3,8 +3,7 @@
 ---
 
 ## Descrição do Projeto
-Uma breve e clara descrição do que o seu projeto faz. Pense em uma ou duas frases que capturem a essência.
-*Exemplo:* "Este projeto é uma aplicação web de gerenciamento de tarefas que permite aos usuários criar, editar e excluir tarefas de forma intuitiva."
+CRUD feito como projeto final do terceiro semestre da faculdade. Consiste em um ecommerce com todas as funções que um eccomercec teria como carrinho, produtos, descrição, etc. Além disso há um sistema de usuários tendo o usuário normal e o administrador e cada um pode fazeer coisas diferentes dentro da página.
 
 ---
 
