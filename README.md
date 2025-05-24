@@ -36,7 +36,7 @@ Passos detalhados para clonar o repositório, instalar as dependências e config
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/seu-usuario/seu-projeto.git](https://github.com/seu-usuario/seu-projeto.git)
+    git clone https://github.com/olucasamr/ecommerce-faculdade.git
     cd seu-projeto
     ```
 
