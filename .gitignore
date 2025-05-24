@@ -1,0 +1,51 @@
+# Arquivos e diretórios do PyCharm
+.idea/
+*.iml # Arquivos de módulo da JetBrains (usados pelo PyCharm)
+*.ipr # Arquivo de projeto da JetBrains
+*.iws # Arquivo de workspace da JetBrains
+
+# Arquivos e diretórios de outras IDEs/Editores comuns (boa prática incluir)
+.vscode/ # VS Code
+.classpath # Eclipse
+.project # Eclipse
+.settings/ # Eclipse
+.cproject # Eclipse CDT
+.buildpath # Eclipse
+
+# Python
+__pycache__/
+*.pyc
+*.pyd
+.Python # Pasta criada por algumas ferramentas Python
+
+# Ambientes Virtuais (recomendado ignorar em qualquer lugar)
+venv/
+.venv/
+env/
+.env/
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+tmp/
+logs/
+debug.log
+error.log
+
+# Arquivos de cache e build
+build/
+dist/
+out/
+target/
+*.egg-info/
+.coverage
+.cache/
+
+# Arquivos de Sistema Operacional
+.DS_Store # macOS
+Thumbs.db # Windows
+Desktop.ini # Windows
+
+# Variáveis de ambiente sensíveis (importante ignorar)
+.env
+.flaskenv

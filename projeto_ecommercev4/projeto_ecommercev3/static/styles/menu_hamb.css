@@ -1,0 +1,111 @@
+
+#menu {
+    display: none;
+}
+
+
+@media screen and (max-width: 670px) {
+
+    #menu {
+    display: block;
+    }   
+
+    #menu {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: auto;
+    }
+
+    #menu-bar {
+        width: 45px;
+        height: 40px;
+        margin: 20px 80px 20px 0;
+        /* top: 10px | right: 40px */
+        cursor: pointer;
+    }
+
+    .bar {
+        height: 5px;
+        width: 100%;
+        background-color: rgb(79, 215, 133);
+        display: block;
+        border-radius: 5px;
+        transition: 0.3s ease;
+    }
+
+    #bar1 {
+        transform: translateY(-4px);
+    }
+
+    #bar3 {
+        transform: translateY(4px);
+    }
+
+    .nav {
+        transition: 0.3s ease;
+        display: none;
+    }
+
+    .nav ul {
+        padding: 0 22px;
+    }
+
+    .nav li {
+        list-style: none;
+        padding: 12px 0;
+    }
+
+    .nav li a {
+        color: white;
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .nav li a:hover {
+        font-weight: bold;
+    }
+
+    .menu-bg {
+        z-index: 1;
+        width: 0;
+        height: 0;
+        margin: 20px 80px 20px 0;
+        /* igual ao menu-bar */
+        background: radial-gradient(circle, rgb(79, 215, 133), rgb(79, 215, 133));
+        border-radius: 50%;
+        transition: 0.3s ease;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: auto;
+    }
+
+    .change {
+        display: block;
+    }
+
+    .change .bar {
+        background-color: white;
+    }
+
+    .change #bar1 {
+        transform: translateY(4px) rotateZ(-45deg);
+    }
+
+    .change #bar2 {
+        opacity: 0;
+    }
+
+    .change #bar3 {
+        transform: translateY(-6px) rotateZ(45deg);
+    }
+
+    .change-bg {
+        width: 520px;
+        height: 495px;
+        transform: translate(60%, -30%);
+    }
+
+}

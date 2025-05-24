@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qube</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/buttons.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/banner.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu_hamb.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/rodape.css')}}">
+</head>
+
+<style>
+    .about_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .logo_empresa {
+        width: 200px;
+        height: 100px;
+        background-image: url("/static/assets/logo.png");
+        background-size: 200px;
+        background-repeat: no-repeat;
+
+    }
+
+    .pc_back2 {
+        display: flex;
+        justify-content: center;
+        color: white;
+    }
+
+    .text_content {
+        width: 70%;
+        background-color: rgb(18, 27, 29);
+        align-self: center;
+        padding: 40px;
+        border-radius: 20px;
+        margin: 30px;
+    }
+</style>
+
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('inicio') }}">
+            <div class="Logotipo_Container">
+
+                <img class="Logotipo" src="{{ url_for('static', filename='assets/logo.png')}}" alt="Logo">
+
+            </div>
+            <!-- <img src="{{ url_for('static', filename='uploads/logo.png')}}" alt="Logo"> -->
+        </a>
+
+        <div class="links">
+            <a class="nav_links" href="{{ url_for('loja') }}">Produtos</a>
+            <a class="nav_links" href="{{ url_for('about') }}">Quem somos nós</a>
+        </div>
+
+        <div class="btn_container">
+            {% if 'usuario_logado' in session %}
+            <a href="{{ url_for('logout') }}">
+                <div class="danger">
+                    <p>Sair</p>
+                </div>
+            </a>
+            {% else %}
+            <a href="{{ url_for('login') }}">
+                <div class="btn_normal">
+                    <p>Login</p>
+                </div>
+            </a>
+            <a href="{{ url_for('cadastro') }}">
+                <div class="btn_normal">
+                    <p>cadastro</p>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+
+
+        <div id="menu">
+            <div id="menu-bar" onclick="menuOnClick()">
+                <div id="bar1" class="bar"></div>
+                <div id="bar2" class="bar"></div>
+                <div id="bar3" class="bar"></div>
+            </div>
+            <nav class="nav" id="nav">
+                <ul>
+                    <a class="nav_links" href="{{ url_for('loja') }}">Produtos</a>
+                    <a class="nav_links" href="{{ url_for('about') }}">Quem somos nós</a>
+
+                    {% if 'usuario_logado' in session %}
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('cadastro') }}">cadastro</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="menu-bg" id="menu-bg"></div>
+
+    </nav>
+
+    <section class="pc_back2">
+
+        <div class="text_content">
+
+            <div class="about_content"
+                style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto;">
+
+
+
+                <h3>Qube: Tecnologia de Ponta e Soluções Personalizadas</h3>
+                <p>A Qube é uma empresa brasileira líder em computadores de alto desempenho e soluções de TI. Nascida
+                    com a missão de tornar a tecnologia de ponta acessível e eficiente, a Qube rapidamente se tornou
+                    referência em qualidade e inovação no Brasil.</p>
+
+                <h3>Performance Sob Medida</h3>
+                <p>Diferente das grandes corporações, a Qube se destaca pela personalização. Montamos máquinas sob
+                    demanda, otimizadas para cada necessidade: gamers, criadores de conteúdo, arquitetos, engenheiros ou
+                    empresas que exigem estações de trabalho robustas. Nosso portfólio inclui desde notebooks e desktops
+                    de entrada até máquinas de altíssimo desempenho com componentes de última geração.</p>
+
+                <h3>Experiência Qube: Qualidade e Suporte</h3>
+                <p>Nosso diferencial está na experiência de compra consultiva e transparente. Especialistas analisam
+                    suas necessidades para oferecer a melhor solução em performance, durabilidade e custo-benefício.
+                    Cada máquina é montada manualmente por técnicos especializados, com rigorosos testes de qualidade.
+                    Oferecemos também suporte técnico humanizado, garantia estendida e canais de atendimento direto.</p>
+
+                <h3>Tecnologia com Propósito</h3>
+                <p>A Qube acredita que a tecnologia deve servir às pessoas. Por isso, investimos em educação digital,
+                    parcerias com ONGs e práticas sustentáveis, como o descarte consciente e a reutilização de
+                    embalagens.</p>
+
+                <h3>Visão de Futuro</h3>
+                <p>Mais do que vender computadores, a Qube quer moldar o futuro da computação no Brasil. De olho nas
+                    tendências globais (IA, RV, nuvem), expandiremos nosso portfólio para servidores, data centers e
+                    softwares próprios, buscando ser uma aliada estratégica para quem busca performance, confiabilidade
+                    e inovação.</p>
+
+                <p><strong>Qube — Conectando Você ao Máximo Desempenho.</strong></p>
+
+                <div class="logo_empresa"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="rodape">
+        <div class="rodape_container">
+            <div>
+                <h5>Referências</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.flaticon.com/">Flaticon</a></li>
+                    <li><a target="_blank" href="https://fonts.google.com/">Google Fonts</a></li>
+                    <li><a target="_blank" href="https://www.pexels.com/pt-br/">Pexels</a></li>
+                    <li><a target="_blank" href="https://br.pinterest.com/">Pinterest</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Criadores</h5>
+                <ul>
+                    <li><a target="_blank"
+                            href="https://www.linkedin.com/in/bruno-firmino-torres-151b2628b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Bruno
+                            Firmino</a></li>
+                    <li><a target="_blank" href="">Douglas Melo</a></li>
+                    <li><a target="_blank"
+                            href="https://www.linkedin.com/in/fernando-rodrigues-006213366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Fernando</a>
+                    </li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/olucasamr/">Lucas Amaral</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Links úteis</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.w3schools.com/">W3 Schools</a></li>
+                    <li><a target="_blank" href="https://stackoverflow.com/questions">Stack Overflow</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="direitos">
+            <p>&copy; 2026 E-commerce - Todos os direitos reservados</p>
+        </div>
+    </footer>
+</body>
+
+<script defer src="{{ url_for('static', filename='script/menu.js')}}"></script>
+
+</html>

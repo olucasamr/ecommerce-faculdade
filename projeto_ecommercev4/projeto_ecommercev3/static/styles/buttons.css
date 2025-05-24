@@ -1,0 +1,75 @@
+
+
+.danger {
+    box-sizing: border-box;
+    background-color: rgb(216, 38, 50);
+    text-align: center;
+    align-items: center;
+    width: 60px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.danger:hover {
+    background-color: rgb(241, 95, 105);
+}
+
+
+.btn_normal {
+    box-sizing: border-box;
+    text-align: center;
+    align-items: center;
+    width: 90px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.btn_normal:hover {
+    background-color: #fff;
+    color: #192325;
+    font-weight: 400;
+}
+
+.btn_access {
+    background-color: rgb(79, 215, 133);
+    padding: 7px;
+    border-radius: 10px;
+    font-weight: 400;
+    width: 100%;
+}
+
+.btn_access:hover {
+    background-color: rgb(59, 161, 100);
+}
+
+.btn_acess2 {
+    background-color: rgb(140, 140, 140);
+    padding: 7px;
+    border-radius: 10px;
+    font-weight: 400;
+    width: 60%;
+}
+
+.btn_acess2:hover {
+    background-color: rgb(198, 198, 198)
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+.btn_carrinho {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgb(79, 215, 133);
+    border-radius: 10px;
+    background-color: #192325;
+    background-image: url(/static/assets/icone_carrinho.png);
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: 6pt;
+    position: fixed;
+    left: 88%;
+    top: 88%;
+    z-index: 10;
+}

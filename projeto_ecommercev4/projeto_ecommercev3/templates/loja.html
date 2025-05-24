@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qube</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/buttons.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/banner.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu_hamb.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/rodape.css')}}">
+</head>
+
+<style>
+
+    .about_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .logo_empresa {
+        width: 200px;
+        height: 100px;
+        background-image: url("/static/assets/logo.png");
+        background-size: 200px;
+        background-repeat: no-repeat;
+
+    }
+
+    .pc_back2 {
+        display: flex;
+        justify-content: center;
+        color: white;
+    }
+
+    .text_content {
+        width: 70%;
+        background-color: rgb(18, 27, 29);
+        align-self: center;
+        padding: 40px;
+        border-radius: 20px;
+        margin: 30px;
+    }
+</style>
+
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('inicio') }}">
+            <div class="Logotipo_Container">
+
+                <img class="Logotipo" src="{{ url_for('static', filename='assets/logo.png')}}" alt="Logo">
+
+            </div>
+            <!-- <img src="{{ url_for('static', filename='uploads/logo.png')}}" alt="Logo"> -->
+        </a>
+
+        <div class="links">
+            <a class="nav_links" href="{{ url_for('loja') }}">Produtos</a>
+            <a class="nav_links" href="{{ url_for('about') }}">Quem somos nós</a>
+        </div>
+
+        <div class="btn_container">
+            {% if 'usuario_logado' in session %}
+            <a href="{{ url_for('logout') }}">
+                <div class="danger">
+                    <p>Sair</p>
+                </div>
+            </a>
+            {% else %}
+            <a href="{{ url_for('login') }}">
+                <div class="btn_normal">
+                    <p>Login</p>
+                </div>
+            </a>
+            <a href="{{ url_for('cadastro') }}">
+                <div class="btn_normal">
+                    <p>cadastro</p>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+
+
+        <div id="menu">
+            <div id="menu-bar" onclick="menuOnClick()">
+                <div id="bar1" class="bar"></div>
+                <div id="bar2" class="bar"></div>
+                <div id="bar3" class="bar"></div>
+            </div>
+            <nav class="nav" id="nav">
+                <ul>
+                    <li><a href="{{ url_for('loja') }}">Loja</a></li>
+                    <li><a href="{{ url_for('loja') }}">Produtos</a></li>
+                    <li><a href=""></a>>Quem somos?</a></li>
+
+                    {% if 'usuario_logado' in session %}
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('cadastro') }}">cadastro</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="menu-bg" id="menu-bg"></div>
+
+    </nav>
+
+    <!-- Navegação -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">E-Commerce</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/carrinho">Carrinho</a>
+                </li>
+            </ul>
+        </div>
+    </nav> -->
+
+    <a href="/carrinho"><div class="btn_carrinho"></div></a>
+
+    <!-- Conteúdo principal -->
+    <div class="container mt-5">
+        <!-- Mensagens flash -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="flash-message" class="alert alert-success">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="row">
+            {% for produto in produtos %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    {% if produto.url_imagem %}
+                    <img src="{{ produto.url_imagem }}" class="card-img-top" alt="{{ produto.nome }}">
+                    {% else %}
+                    <img src="/static/img/default.jpg" class="card-img-top" alt="Imagem padrão">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title"><a style="color: #337db9; font-weight: 400;"
+                                href="/produto/{{ produto.id }}">{{ produto.nome }}</a></h5>
+                        <p class="card-text"><span style="font-size: 24px; font-weight: 400;">Preço: R$ {{ produto.preco }}</span></p>
+                        <p class="card-text">{{ produto.descricao }}</p>
+                        <!-- Formulário para adicionar ao carrinho -->
+                        <form action="{{ url_for('add_to_cart', produto_id=produto.id) }}" method="POST">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="submit" class="btn btn-secondary btn_add" style="border: none;  margin: 5px;">Adicionar ao Carrinho</button>
+                                <input type="number" name="quantidade" value="1" min="1" class="form-control me-2"
+                                    style="width: 70px;" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="rodape" style="background-color: #192325;">
+        <div class="rodape_container">
+            <div>
+                <h5>Referências</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.flaticon.com/">Flaticon</a></li>
+                    <li><a target="_blank" href="https://fonts.google.com/">Google Fonts</a></li>
+                    <li><a target="_blank" href="https://www.pexels.com/pt-br/">Pexels</a></li>
+                    <li><a target="_blank" href="https://br.pinterest.com/">Pinterest</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Criadores</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/bruno-firmino-torres-151b2628b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Bruno Firmino</a></li>
+                    <li><a target="_blank" href="">Douglas Melo</a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/fernando-rodrigues-006213366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">Fernando</a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/olucasamr/">Lucas Amaral</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Links úteis</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.w3schools.com/">W3 Schools</a></li>
+                    <li><a target="_blank" href="https://stackoverflow.com/questions">Stack Overflow</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="direitos">
+            <p>&copy; 2026 E-commerce - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Script para ocultar mensagens flash após 5 segundos -->
+    <script>
+        setTimeout(function () {
+            var flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                flashMessage.style.opacity = '0';
+                setTimeout(function () {
+                    flashMessage.style.display = 'none';
+                }, 500);
+            }
+        }, 5000);
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+    <script defer src="{{ url_for('static', filename='script/menu.js')}}"></script>
+</html>

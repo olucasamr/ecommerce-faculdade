@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qube</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/reset.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/buttons.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/banner.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu_hamb.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/rodape.css')}}">
+</head>
+
+<style>
+
+    .about_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .logo_empresa {
+        width: 200px;
+        height: 100px;
+        background-image: url("/static/assets/logo.png");
+        background-size: 200px;
+        background-repeat: no-repeat;
+
+    }
+
+    .pc_back2 {
+        display: flex;
+        justify-content: center;
+        color: white;
+    }
+
+    .text_content {
+        width: 70%;
+        background-color: rgb(18, 27, 29);
+        align-self: center;
+        padding: 40px;
+        border-radius: 20px;
+        margin: 30px;
+    }
+</style>
+
+<body style="background-color: #fff;">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+    <nav class="navbar">
+
+        <a href="{{ url_for('inicio') }}">
+            <div class="Logotipo_Container">
+
+                <img class="Logotipo" src="{{ url_for('static', filename='assets/logo.png')}}" alt="Logo">
+
+            </div>
+            <!-- <img src="{{ url_for('static', filename='uploads/logo.png')}}" alt="Logo"> -->
+        </a>
+
+        <div class="links">
+            <a class="nav_links" href="{{ url_for('loja') }}">Produtos</a>
+            <a class="nav_links" href="{{ url_for('about') }}">Quem somos nós</a>
+        </div>
+
+        <div class="btn_container">
+            {% if 'usuario_logado' in session %}
+            <a href="{{ url_for('logout') }}">
+                <div class="danger">
+                    <p>Sair</p>
+                </div>
+            </a>
+            {% else %}
+            <a href="{{ url_for('login') }}">
+                <div class="btn_normal">
+                    <p>Login</p>
+                </div>
+            </a>
+            <a href="{{ url_for('cadastro') }}">
+                <div class="btn_normal">
+                    <p>cadastro</p>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+
+
+        <div id="menu">
+            <div id="menu-bar" onclick="menuOnClick()">
+                <div id="bar1" class="bar"></div>
+                <div id="bar2" class="bar"></div>
+                <div id="bar3" class="bar"></div>
+            </div>
+            <nav class="nav" id="nav">
+                <ul>
+                    <li><a href="{{ url_for('loja') }}">Loja</a></li>
+                    <li><a href="{{ url_for('loja') }}">Produtos</a></li>
+                    <li><a href=""></a>>Quem somos?</a></li>
+
+                    {% if 'usuario_logado' in session %}
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('cadastro') }}">cadastro</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="menu-bg" id="menu-bg"></div>
+
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center">{{ titulo }}</h1>
+        <form action="{{ url_for('editar', id=produto.id) }}" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <div class="form-group mb-3">
+                    <label for="nome">Nome do Produto</label>
+                    <input type="text" id="nome" name="nome" class="form-control" value="{{ produto.nome }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="preco">Preço</label>
+                    <input type="number" step="0.01" id="preco" name="preco" class="form-control" value="{{ produto.preco }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" class="form-control" rows="4" required>{{ produto.descricao }}</textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="quantidade">Quantidade</label>
+                    <input type="number" id="quantidade" name="quantidade" class="form-control" value="{{ produto.quantidade }}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="imagem_atual">Imagem Atual</label>
+                    {% if produto.url_imagem %}
+                        <img src="{{ produto.url_imagem }}" alt="{{ produto.nome }}" class="img-fluid" style="max-width: 200px;">
+                    {% else %}
+                        <p>Sem imagem</p>
+                    {% endif %}
+                </div>
+                <div class="form-group mb-3">
+                    <label for="imagem">Substituir Imagem</label>
+                    <input type="file" id="imagem" name="imagem" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </fieldset>
+        </form>
+    </div>
+
+     <!-- Rodapé -->
+    <footer class="rodape" style="background-color: #192325; margin-top: 5%;">
+        <div class="rodape_container">
+            <div>
+                <h5>Referências</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.flaticon.com/">Flaticon</a></li>
+                    <li><a target="_blank" href="https://fonts.google.com/">Google Fonts</a></li>
+                    <li><a target="_blank" href="https://www.pexels.com/pt-br/">Pexels</a></li>
+                    <li><a target="_blank" href="https://br.pinterest.com/">Pinterest</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Criadores</h5>
+                <ul>
+                    <li><a target="_blank" href="">Bruno Firmino</a></li>
+                    <li><a target="_blank" href="">Douglas Melo</a></li>
+                    <li><a target="_blank" href="">Fernando</a></li>
+                    <li><a target="_blank" href="https://www.linkedin.com/in/olucasamr/">Lucas Amaral</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Links úteis</h5>
+                <ul>
+                    <li><a target="_blank" href="https://www.w3schools.com/">W3 Schools</a></li>
+                    <li><a target="_blank" href="https://stackoverflow.com/questions">Stack Overflow</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="direitos">
+            <p>&copy; 2026 E-commerce - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
