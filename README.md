@@ -37,7 +37,7 @@ Passos detalhados para clonar o repositório, instalar as dependências e config
 1.  **Clone o repositório:**
     ```bash
     git clone https://github.com/olucasamr/ecommerce-faculdade.git
-    cd seu-projeto
+    cd projeto_ecommercev3
     ```
 
 2.  **Instale as dependências do backend:**
